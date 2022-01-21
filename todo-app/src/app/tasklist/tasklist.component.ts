@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 import { Task } from '../model/task.model';
 import { TaskService } from '../services/task.service';
 
@@ -8,8 +9,11 @@ import { TaskService } from '../services/task.service';
   styleUrls: ['./tasklist.component.css']
 })
 export class TasklistComponent implements OnInit {
-
-  constructor(private taskService: TaskService) { }
+  public tasks: Task[]; 
+ 
+  constructor(private taskService: TaskService) { 
+    
+  }
 
   ngOnInit(): void {
     this.getTaskList();
@@ -17,13 +21,12 @@ export class TasklistComponent implements OnInit {
   
   getTaskList() {
  
-    this.taskService.getAllTasks().subscribe( res => { 
-      res.map((t) => {
-        console.log("desc " +t.description);
-      });
-     
-    });;
-   console.log( "resp ");
+   this.taskService.getAllTasks().subscribe((customList: Task[]) => {
+    this.tasks = customList;
+    this.tasks.map(t => {console.log(t.description)});
+    // todo: determine the selected configuration
+   
+});
    
   }
 
