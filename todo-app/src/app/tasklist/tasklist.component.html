@@ -2,7 +2,20 @@
 <input type="text" [(ngModel)]="description"/>
 <app-button title="Add" (btnClick)="addTask()">
 </app-button>
-<li *ngFor="let task of tasks">
-  <span class="badge">{{task.description}} {{task.updatedDate}}</span> 
-  <app-button title="Remove" (btnClick)="removeTask()"></app-button>
-</li>
+<table>
+    <thead>
+        <tr><td>Description</td>
+            <td>Updated Date</td>
+            <td>Remove</td>
+        </tr>
+    </thead>
+<tbody *ngFor="let task of tasks">
+  <tr>
+      <td> {{task.description}} </td>
+      <td>{{task.updatedDate}}</td>
+      <td>
+        <app-button title="X" (btnClick)="removeTask(task.id)"></app-button>
+      </td>
+  </tr>    
+</tbody>
+</table>

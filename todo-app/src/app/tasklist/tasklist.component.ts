@@ -10,8 +10,10 @@ import { TaskService } from '../services/task.service';
 })
 export class TasklistComponent implements OnInit {
   public tasks: Task[]; 
+
   @Input()
   public description: string;
+  
   constructor(private taskService: TaskService) { 
     
   }
@@ -22,8 +24,8 @@ export class TasklistComponent implements OnInit {
   
   getTaskList() {
  
-    this.taskService.getAllTasks().subscribe((customList: Task[]) => {
-    this.tasks = customList;
+    this.taskService.getAllTasks().subscribe((inputTaskList: Task[]) => {
+    this.tasks = inputTaskList;
     this.tasks.map(t => {console.log(t.description)});
    
     });
@@ -36,10 +38,13 @@ export class TasklistComponent implements OnInit {
     taskSave.userid = 1;
     this.taskService.addTask(taskSave);
     console.log("Add task to taskList "+this.description);
+    this.getTaskList();
   }
 
-  removeTask(){
-    console.log("remove from taskList");
+  removeTask(taskid:any){
+    console.log("remove from taskList "+taskid);
+    this.taskService.removeTask(taskid);
+    this.getTaskList();
   }
 
 }
