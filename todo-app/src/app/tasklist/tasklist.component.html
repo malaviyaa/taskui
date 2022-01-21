@@ -1,21 +1,22 @@
 <p>Todo tasklist!</p>
-<input type="text" [(ngModel)]="description"/>
+<input type="text" [(ngModel)]="description" />
 <app-button title="Add" (btnClick)="addTask()">
 </app-button>
 <table>
-    <thead>
-        <tr><td>Description</td>
-            <td>Updated Date</td>
-            <td>Remove</td>
-        </tr>
-    </thead>
-<tbody *ngFor="let task of tasks">
-  <tr>
+  <thead>
+    <tr>
+      <td>Description</td>
+      <td>Updated Date</td>
+      <td>Remove</td>
+    </tr>
+  </thead>
+  <tbody *ngFor="let task of tasks">
+    <tr>
       <td> {{task.description}} </td>
-      <td>{{task.updatedDate}}</td>
+      <td> {{task.updatedDate}}</td>
       <td>
         <app-button title="X" (btnClick)="removeTask(task.id)"></app-button>
       </td>
-  </tr>    
-</tbody>
+    </tr>
+  </tbody>
 </table>

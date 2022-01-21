@@ -1,4 +1,6 @@
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TaskService } from '../services/task.service';
 
 import { TasklistComponent } from './tasklist.component';
 
@@ -8,7 +10,8 @@ describe('TasklistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TasklistComponent ]
+      declarations: [ TasklistComponent ],
+      providers:[TaskService,HttpClient,HttpHandler],
     })
     .compileComponents();
   });
@@ -22,4 +25,6 @@ describe('TasklistComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 });

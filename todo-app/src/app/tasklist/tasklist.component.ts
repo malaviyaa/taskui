@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+
 import { Task } from '../model/task.model';
 import { TaskService } from '../services/task.service';
 
@@ -9,40 +9,35 @@ import { TaskService } from '../services/task.service';
   styleUrls: ['./tasklist.component.css']
 })
 export class TasklistComponent implements OnInit {
-  public tasks: Task[]; 
 
-  @Input()
-  public description: string;
-  
-  constructor(private taskService: TaskService) { 
-    
-  }
+  @Input() description: string;
+
+  public tasks: Task[];
+
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.getTaskList();
   }
-  
+
   getTaskList() {
- 
+
     this.taskService.getAllTasks().subscribe((inputTaskList: Task[]) => {
-    this.tasks = inputTaskList;
-    this.tasks.map(t => {console.log(t.description)});
-   
+      this.tasks = inputTaskList;
     });
-   
+
   }
 
-  addTask(){
+  addTask() {
     const taskSave = new Task();
     taskSave.description = this.description;
     taskSave.userid = 1;
     this.taskService.addTask(taskSave);
-    console.log("Add task to taskList "+this.description);
     this.getTaskList();
   }
 
-  removeTask(taskid:any){
-    console.log("remove from taskList "+taskid);
+  removeTask(taskid: any) {
+    console.log("remove from taskList " + taskid);
     this.taskService.removeTask(taskid);
     this.getTaskList();
   }
