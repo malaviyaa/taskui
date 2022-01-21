@@ -1,1 +1,8 @@
 <p>Todo tasklist!</p>
+<input type="text" [(ngModel)]="description"/>
+<app-button title="Add" (btnClick)="addTask()">
+</app-button>
+<li *ngFor="let task of tasks">
+  <span class="badge">{{task.description}} {{task.updatedDate}}</span> 
+  <app-button title="Remove" (btnClick)="removeTask()"></app-button>
+</li>

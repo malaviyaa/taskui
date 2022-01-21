@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { Task } from '../model/task.model';
 import { TaskService } from '../services/task.service';
@@ -10,7 +10,8 @@ import { TaskService } from '../services/task.service';
 })
 export class TasklistComponent implements OnInit {
   public tasks: Task[]; 
- 
+  @Input()
+  public description: string;
   constructor(private taskService: TaskService) { 
     
   }
@@ -21,13 +22,24 @@ export class TasklistComponent implements OnInit {
   
   getTaskList() {
  
-   this.taskService.getAllTasks().subscribe((customList: Task[]) => {
+    this.taskService.getAllTasks().subscribe((customList: Task[]) => {
     this.tasks = customList;
     this.tasks.map(t => {console.log(t.description)});
-    // todo: determine the selected configuration
    
-});
+    });
    
+  }
+
+  addTask(){
+    const taskSave = new Task();
+    taskSave.description = this.description;
+    taskSave.userid = 1;
+    this.taskService.addTask(taskSave);
+    console.log("Add task to taskList "+this.description);
+  }
+
+  removeTask(){
+    console.log("remove from taskList");
   }
 
 }
