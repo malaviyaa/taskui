@@ -2,7 +2,9 @@
 <input type="text" [(ngModel)]="description" />
 <app-button title="Add" (btnClick)="addTask()">
 </app-button>
-<table>
+
+<div *ngIf="tasks?.length">
+  <table>
   <thead>
     <tr>
       <td>Description</td>
@@ -20,3 +22,4 @@
     </tr>
   </tbody>
 </table>
+</div>
